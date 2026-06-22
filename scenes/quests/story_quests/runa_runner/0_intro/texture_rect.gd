@@ -33,5 +33,5 @@ func _input(event: InputEvent) -> void:
 
 		else:
 			SceneSwitcher.change_to_file(
-				"res://scenes/quests/story_quests/runa_runner/0_intro/jugable_intro.tscn"
+			"res://scenes/quests/story_quests/runa_runner/0_intro/Intro_segunda_parte.tscn"
 			)

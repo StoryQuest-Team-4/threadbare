@@ -171,7 +171,6 @@ func _process_state(delta: float) -> void:
 func _wander(delta: float) -> void:
 	if _wander_timer > 0.0:
 		_wander_timer -= delta
-		guard_movement.stop_moving()
 		return
 
 	if guard_movement.has_reached_destination():

@@ -277,7 +277,7 @@ func _on_player_hook_aiming_changed(is_aiming: bool) -> void:
 	)
 	input_walk_behavior.speeds.run_speed = aiming_speed if is_aiming else _initial_speeds.run_speed
 
-@onready var luz: PointLight2D = get_node_or_null("PointLight2D") as PointLight2D
+@onready var luz: PointLight2D = get_node_or_null("Light") as PointLight2D
 
 func _process(_delta: float) -> void:
 	if not is_instance_valid(luz):
