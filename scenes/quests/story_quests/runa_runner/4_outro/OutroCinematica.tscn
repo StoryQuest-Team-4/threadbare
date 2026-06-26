@@ -18,12 +18,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control" unique_id=1640329303]
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 1)
+metadata/_edit_use_anchors_ = true
 
 [node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/Control" unique_id=1933872216]
 layout_mode = 0
@@ -36,6 +38,7 @@ theme_override_font_sizes/italics_font_size = 32
 theme_override_font_sizes/mono_font_size = 32
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control" unique_id=1921173189]
 visible = false
