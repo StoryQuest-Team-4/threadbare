@@ -1,5 +1,30 @@
 # SPDX-FileCopyrightText: The Threadbare Authors
 # SPDX-License-Identifier: MPL-2.0
+
+~ opening_battle
+Cusi: ¿Otra vez tú? He escapado de ti desde el Cusco futurista... ¿por qué me sigues?
+Entidad misteriosa: No escapas de mí, Cusi. Escapas de lo que has olvidado.
+Cusi: No entiendo. Solo he cruzado portales, enfrentado peligros y protegido lugares que ni siquiera sabía que existían.
+Entidad misteriosa: Cada lugar que visitaste forma parte de tu historia. Sacsayhuamán, las llamas, los caminos andinos y Machu Picchu no son solo escenarios: son memoria.
+Cusi: Entonces... ¿todo esto era una prueba?
+Entidad misteriosa: Era un camino. La hoja te enseñó a proteger, la cuerda te enseñó a guiar, y este lugar te mostrará la verdad.
+Cusi: Si quieres detenerme, no me rendiré. Ahora sé que estos recuerdos también me pertenecen.
+Entidad misteriosa: Entonces demuestra que puedes llevar ese legado contigo.
+=> END
+
+~ during_combat
+Cusi: La hoja responde a la luz... puedo bloquear sus ataques.
+Entidad misteriosa: La fuerza no está solo en atacar, sino en recordar por qué luchas.
+Cusi: ¡No dejaré que esta historia desaparezca!
+=> END
+
+~ final_revelation
+Cusi: Estoy perdiendo fuerzas... pero no puedo caer ahora.
+Entidad misteriosa: Ya no necesitas vencerme. Necesitas comprender.
+Cusi: ¿Comprender qué?
+Entidad misteriosa: Que nunca fui tu enemigo.
+=> END
+
 ~ start
 Cusi: El portal me soltó en un campo abierto.
 Cusi: Por ahora solo hay césped y silencio.

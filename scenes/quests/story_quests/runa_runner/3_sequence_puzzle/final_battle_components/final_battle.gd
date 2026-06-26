@@ -4,10 +4,12 @@ class_name RunaRunnerFinalBattle
 extends Node2D
 
 @export var projectile_scene: PackedScene
+@export var dialogue: DialogueResource
 @export_file("*.tscn") var next_scene: String = "res://scenes/quests/story_quests/runa_runner/4_outro/OutroCinematica.tscn"
 @export var max_player_health: float = 100.0
 @export var final_health_threshold: float = 18.0
 @export var survival_time: float = 34.0
+@export var combat_dialogue_time: float = 9.0
 @export var projectile_speed: float = 260.0
 @export var entity_move_speed: float = 115.0
 @export var arena_min: Vector2 = Vector2(32, 32)
@@ -23,6 +25,9 @@ var _rope_cooldown: float = 0.0
 var _blade_cooldown: float = 0.0
 var _pattern_index: int = -1
 var _battle_finished: bool = false
+var _battle_started: bool = false
+var _dialogue_showing: bool = false
+var _combat_dialogue_shown: bool = false
 var _entity_start_position: Vector2
 var _entity_move_target: Vector2
 var _entity_move_timer: float = 0.0
@@ -58,11 +63,19 @@ func _ready() -> void:
 	rope_line.visible = false
 	blade_slash.visible = false
 	_play_entity_animation(&"idle")
+	instruction_label.text = "La entidad se acerca..."
+	player.mode = Player.Mode.SYSTEM_CONTROLLED
+	await get_tree().process_frame
+	await _show_dialogue("opening_battle")
+	if _battle_finished:
+		return
+	_battle_started = true
+	player.mode = Player.Mode.USER_CONTROLLED
 	instruction_label.text = "Sobrevive a la entidad | Z bloquea | X hoja | Espacio cuerda"
 
 
 func _physics_process(delta: float) -> void:
-	if _battle_finished:
+	if _battle_finished or not _battle_started or _dialogue_showing:
 		return
 
 	_battle_time += delta
@@ -75,6 +88,10 @@ func _physics_process(delta: float) -> void:
 	_update_entity_motion(delta)
 	_handle_player_tools()
 	_clamp_player_to_arena()
+	if not _combat_dialogue_shown and _battle_time >= combat_dialogue_time:
+		_combat_dialogue_shown = true
+		_start_combat_dialogue()
+		return
 
 	if _projectile_timer <= 0.0:
 		_fire_next_pattern()
@@ -250,6 +267,26 @@ func _update_health_bar() -> void:
 	player_health_bar.value = _player_health
 
 
+func _start_combat_dialogue() -> void:
+	instruction_label.text = "Recuerda las herramientas que reuniste."
+	await _show_dialogue("during_combat")
+	if _battle_finished:
+		return
+	player.mode = Player.Mode.USER_CONTROLLED
+	instruction_label.text = "Sobrevive a la entidad | Z bloquea | X hoja | Espacio cuerda"
+
+
+func _show_dialogue(title: String) -> void:
+	if dialogue == null or title.is_empty():
+		return
+	_dialogue_showing = true
+	player.mode = Player.Mode.SYSTEM_CONTROLLED
+	player.velocity = Vector2.ZERO
+	DialogueManager.show_dialogue_balloon(dialogue, title, [self, player])
+	await DialogueManager.dialogue_ended
+	_dialogue_showing = false
+
+
 func _clear_projectiles_near(origin: Vector2, radius: float) -> int:
 	var cleared: int = 0
 	for child: Node in projectile_parent.get_children():
@@ -289,6 +326,11 @@ func _start_white_out() -> void:
 	if is_instance_valid(player):
 		player.mode = Player.Mode.SYSTEM_CONTROLLED
 		player.velocity = Vector2.ZERO
+	call_deferred("_play_final_sequence")
+
+
+func _play_final_sequence() -> void:
+	await _show_dialogue("final_revelation")
 	white_out.visible = true
 	white_out.color = Color(1.0, 1.0, 1.0, 0.0)
 	var tween: Tween = create_tween()

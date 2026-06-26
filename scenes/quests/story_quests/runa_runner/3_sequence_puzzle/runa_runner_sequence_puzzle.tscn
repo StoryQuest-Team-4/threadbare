@@ -17,6 +17,7 @@ loop = true
 [node name="RunaRunnerSequencePuzzle" type="Node2D" unique_id=217609538]
 script = ExtResource("7_gxvbr")
 projectile_scene = ExtResource("8_sfqbg")
+dialogue = ExtResource("22_a3jbc")
 
 [node name="TileMapLayers" type="Node2D" parent="." unique_id=2088852286]
 
